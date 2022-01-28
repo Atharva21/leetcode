@@ -36,24 +36,6 @@ private:
         }
     }
     
-    // void debugDfs(Node* node) {
-    //     if(!node) return;
-    //     bool visited = false;
-    //     for(int i=0;i<26;++i) {
-    //         if(!(node->children[i])) continue;
-    //         if(!visited)
-    //             cout << endl;
-    //         visited = true;
-    //         char c = 'a' + i;
-    //         if(node->children[i]->isLeaf) {
-    //             cout << " " << c << "L";
-    //         } else {
-    //             cout << " " << c;
-    //         }
-    //         debugDfs(node->children[i]);
-    //     }
-    // }
-    
 public:
     WordDictionary() {
         root = new Node();
