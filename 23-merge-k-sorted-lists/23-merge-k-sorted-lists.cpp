@@ -18,7 +18,7 @@ public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         ListNode *head=NULL, *temp=NULL;
         const int k = lists.size();
-        while(!allNull(lists)) {
+        while(true) {
             int idx = -1;
             for(int i=0;i<k;++i) {
                 auto node = lists[i];
@@ -27,6 +27,7 @@ public:
                     idx = i;
                 }
             }
+            if(idx == -1) break;
             if(!head) {
                 temp = head = new ListNode(lists[idx]->val);
             } else {
