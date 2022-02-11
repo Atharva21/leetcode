@@ -10,7 +10,9 @@ public:
             if(m1[s2[i]-'a'] == 0) continue;
             vector<int> m2(26, 0);
             for(int j=0;j<m;++j) {
-                ++m2[s2[i+j]-'a'];
+                int x = s2[i+j]-'a';
+                ++m2[x];
+                if(m1[x] < m2[x]) break;
             }
             if(m1 == m2) return true;
         }
