@@ -2,10 +2,10 @@ class Solution {
 private:
     vector<int> v;
     int n;
-    set<vector<int>> s;
+    vector<vector<int>> ans;
     void helper(int i, vector<int> cur) {
         if(i == n) {
-            s.insert(cur);
+            ans.push_back(cur);
             return;
         }
         helper(i+1, cur);
@@ -18,8 +18,6 @@ public:
         v = nums;
         n = v.size();
         helper(0, {});
-        vector<vector<int>> ans;
-        for(auto x: s) ans.push_back(x);
         return ans;
     }
 };
