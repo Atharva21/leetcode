@@ -13,6 +13,7 @@ public:
                 if(k == ans.size()) return ans;
             }
         }
+        // TODO just go through the vis instead and whatever is false, push in ans.
         for(int col=0;col<n;++col) {
             for(int row=0;row<m;++row) {
                 if(vis[row]) continue;
