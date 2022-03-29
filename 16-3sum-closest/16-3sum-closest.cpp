@@ -5,6 +5,7 @@ public:
         sort(v.begin(), v.end());
         int ans = v[0]+v[1]+v[2];
         for(int i=0;i<n-2;++i) {
+            if(i > 0 && v[i-1] == v[i]) continue;
             int l = i+1, r = n-1;
             while(l < r) {
                 int cur = v[i]+v[l]+v[r];
