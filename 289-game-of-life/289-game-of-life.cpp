@@ -5,7 +5,6 @@ private:
     }
 public:
     void gameOfLife(vector<vector<int>>& board) {
-        vector<vector<int>> cp = board;
         const int m = board.size();
         const int n = board[0].size();
         vector<pair<int, int>> nbrs = {
@@ -18,6 +17,7 @@ public:
             {1, 0},
             {1, 1},
         };
+        vector<pair<int, int>> flip;
         for(int i=0;i<m;++i) {
             for(int j=0;j<n;++j) {
                 int livenbrs = 0;
@@ -27,13 +27,12 @@ public:
                     }
                 }
                 if(board[i][j]) {
-                    if(livenbrs < 2) cp[i][j] = 0;
-                    else if(livenbrs > 3) cp[i][j] = 0;
+                    if(livenbrs < 2 || livenbrs > 3) flip.push_back({i, j});
                 } else {
-                    if(livenbrs == 3) cp[i][j] = 1;
+                    if(livenbrs == 3) flip.push_back({i, j});
                 }
             }
         }
-        board = cp;
+        for(auto& f: flip) board[f.first][f.second] = !board[f.first][f.second];
     }
 };
