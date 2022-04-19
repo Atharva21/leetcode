@@ -32,10 +32,10 @@ public:
         for(auto& v: prerequisites) {
             deps[v[0]].push_back(v[1]);
         }
+        memset(isprocessed, false, sizeof(isprocessed));
         for(int i=0;i<numCourses;++i) {
             if(vis[i] >= 0) continue;
             // logic.
-            memset(isprocessed, false, sizeof(isprocessed));
             if(!dfs(i, i)) return {};
         }
         return ans;
