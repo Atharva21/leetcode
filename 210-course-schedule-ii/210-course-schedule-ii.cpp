@@ -1,43 +1,42 @@
 class Solution {
 private:
     vector<int> ans;
-    vector<bool> gvis;
-    unordered_map<int, vector<int>> mp;
-    bool dfs(int i, vector<bool> vis) {
-        if(vis[i]) return false;
-        if(gvis[i]) return true;
-        gvis[i] = true;
+    vector<int> vis;
+    vector<vector<int>> deps;
+    bool isprocessed[2002];
+    bool dfs(int idx, int visidx) {
+        if(vis[idx] == visidx) return false;
+        if(vis[idx] >= 0) return true;
         
-        vis[i] = true;
-        for(auto& nbr: mp[i]) {
-            if(!dfs(nbr, vis)) {
-                return false;
-            }
+        //visit
+        vis[idx] = visidx;
+        
+        //recurse through all deps, before returning true;
+        auto dependencies = deps[idx];
+        for(auto& d: dependencies) {
+            if(isprocessed[d]) continue;
+            if(!dfs(d, visidx)) return false;
         }
-        vis[i] = false;
-        ans.push_back(i);
+        
+        //add to ans
+        isprocessed[idx] = true;
+        ans.push_back(idx);
         
         return true;
     }
 public:
     Solution() {
-        for(int i=0;i<2002;++i) gvis.push_back(false);
+        for(int i=0;i<2002;++i) {vis.push_back(-1);deps.push_back({});}
     }
-    vector<int> findOrder(int n, vector<vector<int>>& pre) {
-        for(auto& p: pre) {
-            mp[p[0]].push_back(p[1]);
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        for(auto& v: prerequisites) {
+            deps[v[0]].push_back(v[1]);
         }
-        for(int i=0;i<n;++i) {
-            if(gvis[i]) continue;
-            if(mp[i].size() == 0) {
-                // no preqsits.
-                gvis[i] = true;
-                ans.push_back(i);
-            } else {
-                if(!dfs(i, vector<bool>(n, false))) {
-                    return {};
-                }
-            }
+        for(int i=0;i<numCourses;++i) {
+            if(vis[i] >= 0) continue;
+            // logic.
+            memset(isprocessed, false, sizeof(isprocessed));
+            if(!dfs(i, i)) return {};
         }
         return ans;
     }
