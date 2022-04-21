@@ -1,10 +1,9 @@
 class MyHashSet {
 private:
-    vector<bool> v;
+    bool v[1000001];
 public:
     MyHashSet() {
-        const int limit = (int)pow(10, 6) + 2;
-        for(int i=0;i<limit;++i) v.push_back(false);
+        memset(v, false, sizeof(v));
     }
     
     void add(int key) {
