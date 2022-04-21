@@ -1,9 +1,9 @@
 class MyHashSet {
 private:
-    bool v[1000001];
+    vector<bool> v;
 public:
     MyHashSet() {
-        memset(v, false, sizeof(v));
+       v.resize(1e6+1, false);
     }
     
     void add(int key) {
