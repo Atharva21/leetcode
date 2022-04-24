@@ -21,11 +21,12 @@ public:
         string route = fromStation + "->" + stationName;
         if(mp.find(route) != mp.end()) {
             // we already have a moving avg
-            auto avg = mp[route];
-            double movingAvg = avg.first;
-            int count = avg.second;
-            double newAverage = ((movingAvg * count) + currentTime) / ((double)(count + 1));
-            mp[route] = {newAverage, count+1};
+            auto& avg = mp[route];
+            double& movingAvg = avg.first;
+            int& count = avg.second;
+            movingAvg = ((movingAvg * count) + currentTime) / ((double)(count + 1));
+            ++count;
+            // mp[route] = {newAverage, count+1};
         } else {
             // first time we got this end station.
             mp[route] = {currentTime, 1};
