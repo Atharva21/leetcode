@@ -24,8 +24,7 @@ public:
             auto& avg = mp[route];
             double& movingAvg = avg.first;
             int& count = avg.second;
-            movingAvg = ((movingAvg * count) + currentTime) / ((double)(count + 1));
-            ++count;
+            movingAvg = ((movingAvg * count) + currentTime) / ((double)(++count));
             // mp[route] = {newAverage, count+1};
         } else {
             // first time we got this end station.
