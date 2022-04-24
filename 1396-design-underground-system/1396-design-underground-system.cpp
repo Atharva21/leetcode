@@ -1,7 +1,7 @@
 class UndergroundSystem {
 private:
     unordered_map<string, pair<double, int>> mp;
-    // from station -> to station -> moving average & sum.
+    // (from station -> to station) -> moving average & sum.
     unordered_map<int, pair<string, int>> checkins;
     // id -> from station & start time.
 public:
