@@ -19,30 +19,35 @@
 
 class PeekingIterator : public Iterator {
 private:
-    int i, n;
-    vector<int> v;
+    int nextval;
+    bool hasnext;
+    void update() {
+        hasnext = Iterator::hasNext();
+        if(hasnext)
+            nextval = Iterator::next();
+    }
 public:
 	PeekingIterator(const vector<int>& nums) : Iterator(nums) {
 	    // Initialize any member here.
 	    // **DO NOT** save a copy of nums and manipulate it directly.
 	    // You should only use the Iterator interface methods.
-	    i=0;
-        n = nums.size();
-        v = nums;
+	    update();
 	}
 	
     // Returns the next element in the iteration without advancing the iterator.
 	int peek() {
-        return v[i];
+        return nextval;
 	}
 	
 	// hasNext() and next() should behave the same as in the Iterator interface.
 	// Override them if needed.
 	int next() {
-	    return v[i++];
+        auto prev = nextval;
+	    update();
+        return prev;
 	}
 	
 	bool hasNext() const {
-	    return i < n;
+	    return hasnext;
 	}
 };
