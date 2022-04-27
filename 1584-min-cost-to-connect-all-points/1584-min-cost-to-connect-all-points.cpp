@@ -18,7 +18,7 @@ private:
     }
     struct less_than_key {
         inline bool operator() (const vector<int>& v1, const vector<int>& v2) {
-            return (v1[0] < v2[0]);
+            return (v1[0] > v2[0]);
         }
     };
 public:
@@ -27,20 +27,21 @@ public:
         ranks.resize(nodes+1, 0);
         parents.resize(nodes+1, 0);
         for(int i=1;i<=nodes;++i) parents[i] = i;
-        vector<vector<int>> weights;
+        priority_queue<vector<int>> weights;
         for(int i=0;i<nodes;++i) {
             for(int j=i+1;j<nodes;++j) {
-                weights.push_back({abs(points[i][0] - points[j][0]) + abs(points[i][1] - points[j][1]), i, j});
+                weights.push({-1*(abs(points[i][0] - points[j][0]) + abs(points[i][1] - points[j][1])), i, j});
             }
         }
-        sort(weights.begin(), weights.end(), less_than_key());
-        int ans = 0;
-        for(int i=0;i<weights.size();++i) {
-            int u = weights[i][1];
-            int v = weights[i][2];
+        int ans = 0, edges=0;
+        while(edges < (nodes-1) && !weights.empty()) {
+            auto weight = weights.top();weights.pop();
+            int u = weight[1];
+            int v = weight[2];
             if(getParent(u) == getParent(v)) continue;
             makeUnion(u, v);
-            ans += weights[i][0];
+            ++edges;
+            ans += -1*weight[0];
         }
         return ans;
     }
