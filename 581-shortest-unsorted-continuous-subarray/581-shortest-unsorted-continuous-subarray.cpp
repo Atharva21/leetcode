@@ -6,13 +6,14 @@ public:
         for(int i=0;i+1<n;++i) {
             if(nums[i] > nums[i+1]) {
                 mini = min(mini, nums[i+1]);
+                maxi = max(maxi, nums[i]);
             }
         }
-        for(int i=n-1;i-1>=0;--i) {
-            if(nums[i] < nums[i-1]) {
-                maxi = max(maxi, nums[i-1]);
-            }
-        }
+        // for(int i=n-1;i-1>=0;--i) {
+        //     if(nums[i] < nums[i-1]) {
+        //         maxi = max(maxi, nums[i-1]);
+        //     }
+        // }
         int l, r;
         for(l=0;l<n;++l) {
             if(mini < nums[l]) break;
