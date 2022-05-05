@@ -24,13 +24,13 @@ public:
         edges = graph;
         const int n = graph.size();
         vector<int> ans;
+        vis.resize(n, false);
         for(int i=0;i<n;++i) {
             if(cycles[i]) continue;
             if(safes[i]) {
                 ans.push_back(i);
                 continue;
             }
-            vis.resize(n, false);
             if(dfs(i)) {
                 ans.push_back(i);
             }
