@@ -1,13 +1,22 @@
 class MyStack {
 private:
     queue<int> q1, q2;
-    void shift() {
+    void flip() {
         while(q1.size() > 1) {
-            int x = q1.front();
+            q2.push(q1.front());
             q1.pop();
-            q2.push(x);
         }
-        swap(q1, q2);
+        // queue<int> q3=q1, q4=q2;
+        // cout << "q1: ";
+        // while(!q3.empty()) {
+        //     cout << q3.front() << " ";
+        //     q3.pop();
+        // }
+        // cout << "q2: ";
+        // while(!q4.empty()) {
+        //     cout << q4.front() << " ";
+        //     q4.pop();
+        // }
     }
 public:
     MyStack() {
@@ -15,27 +24,20 @@ public:
     }
     
     void push(int x) {
-        if(q2.size()) {
-            int x = q2.front();
-            q2.pop();
-            q1.push(x);
-        }
         q1.push(x);
     }
     
     int pop() {
-        if(!q2.size())
-            shift();
-        int ans = q2.front();
-        q2.pop();
+        flip();
+        int ans = q1.front();
+        q1.pop();
+        swap(q1, q2);
         return ans;
     }
     
     int top() {
-        if(!q2.size())
-            shift();
-        int ans = q2.front();
-        return ans;
+        flip();
+        return q1.front();
     }
     
     bool empty() {
