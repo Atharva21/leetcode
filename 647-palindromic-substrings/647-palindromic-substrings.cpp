@@ -16,10 +16,10 @@ public:
     int countSubstrings(string s) {
         this->s = s;
         n = s.size();
-        int ans = n;
+        int ans = 0;
         for(int i=0;i<n;++i) {
             // for odd palindromes
-            ans += palindromeCount(i-1, i+1);
+            ans += palindromeCount(i, i);
             // for even palindromes
             ans += palindromeCount(i, i+1);
         }
