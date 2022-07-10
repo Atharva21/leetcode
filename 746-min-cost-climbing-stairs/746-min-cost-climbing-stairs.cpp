@@ -1,18 +1,15 @@
 class Solution {
-private:
-    int n;
-    int dp[1002];
-    vector<int> cost;
-    int dfs(int i=0) {
-        if(i >= n) return 0;
-        if(dp[i] != -1) return dp[i];
-        return dp[i] = cost[i] + min(dfs(i+1), dfs(i+2));
-    }
 public:
     int minCostClimbingStairs(vector<int>& cost) {
-        this->cost = cost;
-        n = cost.size();
-        memset(dp, -1, sizeof(dp));
-        return min(dfs(), dfs(1));
+        const int n = cost.size();
+        if(n < 2) return 0;
+        int dp0 = cost[n-1];
+        int dp1 = 0;
+        for(int i=n-2;i>=0;--i) {
+            int cur = cost[i] + min(dp0, dp1);
+            dp1 = dp0;
+            dp0 = cur;
+        }
+        return min(dp1, dp0);
     }
 };
