@@ -11,12 +11,12 @@
  */
 class Solution {
 private:
-    int maxHeightVisible = -1;
+    int maxVisibleHeight = -1;
     vector<int> ans;
     void dfs(TreeNode* root, int height = 0, bool visible = true) {
         if(!root) return;
-        if(visible || height > maxHeightVisible) {
-            maxHeightVisible = max(maxHeightVisible, height);
+        if(visible || height > maxVisibleHeight) {
+            maxVisibleHeight = max(maxVisibleHeight, height);
             ans.push_back(root->val);
             dfs(root->right, height+1, true);
             dfs(root->left, height+1, root->right == NULL);
