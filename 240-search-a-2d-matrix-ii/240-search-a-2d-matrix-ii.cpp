@@ -3,14 +3,15 @@ public:
     bool searchMatrix(vector<vector<int>>& grid, int target) {
         const int m = grid.size();
         const int n = grid[0].size();
-        int i=0, j=n-1;
-        while(i < m && j >= 0) {
-            // cout << i << " " << j << endl;
+        int i=m-1,j=0;
+        while(i>=0&&j<n) {
             if(grid[i][j] == target) return true;
-            if(grid[i][j] < target) {
-                ++i;
+            if(target < grid[i][j]) {
+                // go up.
+                --i;
             } else {
-                --j;
+                // go right.
+                ++j;
             }
         }
         return false;
