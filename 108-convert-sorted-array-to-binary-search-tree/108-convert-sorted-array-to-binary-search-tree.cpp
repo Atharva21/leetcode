@@ -11,33 +11,18 @@
  */
 class Solution {
 private:
-    TreeNode* createTree(vector<int> nums, int low, int high) {
-        if(low > high) return NULL;
-        int mid = (low+high)/2;
-        TreeNode* node = new TreeNode(nums[mid]);
-        node -> left = createTree(nums, low, mid-1);
-        node -> right = createTree(nums, mid+1, high);
+    TreeNode* getNode(vector<int>& v, int lo, int hi) {
+        if(lo > hi) return NULL;
+        const int mid = (lo + hi) / 2;
+        auto node = new TreeNode(v[mid]);
+        node->left = getNode(v, lo, mid-1);
+        node->right = getNode(v, mid+1, hi);
         return node;
     }
 public:
     TreeNode* sortedArrayToBST(vector<int>& nums) {
         const int n = nums.size();
-        return createTree(nums, 0, n-1);
+        if(!n) return NULL;
+        return getNode(nums, 0, n-1);
     }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
