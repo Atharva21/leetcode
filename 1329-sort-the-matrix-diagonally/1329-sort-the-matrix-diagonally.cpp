@@ -1,33 +1,19 @@
 class Solution {
 public:
     vector<vector<int>> diagonalSort(vector<vector<int>>& mat) {
-        const int rowSize = mat.size();
-        if(!rowSize) return mat;
-        const int colSize = mat[0].size();
-        if(!colSize) return mat;
-        
-        int i = rowSize - 1, j = 0;
-        
-        while(i > 0 || j < colSize) {
-            
-            vector<int> diagonal;
-            int x = i, y = j;
-            while(x < rowSize && y < colSize) {
-                diagonal.push_back(mat[x++][y++]);
+        int m = mat.size(), n = mat[0].size();
+        // all elements on same diagonal have same i-j result.
+        unordered_map<int, priority_queue<int, vector<int>, greater<int>>> map; // min priority queue
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                map[i - j].push(mat[i][j]);
             }
-            sort(diagonal.begin(), diagonal.end());
-            x = i, y = j;
-            int k = 0;
-            while(x < rowSize && y < colSize) {
-                mat[x++][y++] = diagonal[k++];
-            }
-            
-            if(i > 0)
-                --i;
-            else
-                ++j;
         }
-        
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                mat[i][j] = map[i - j].top(); map[i - j].pop();
+            }
+        }
         return mat;
     }
 };
