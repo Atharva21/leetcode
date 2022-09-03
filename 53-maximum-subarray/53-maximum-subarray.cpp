@@ -2,11 +2,12 @@ class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
         const int n = nums.size();
-        int ans = nums[0], sofar = nums[0];
+        if(!n) return 0;
+        int glob = nums[0], loc = nums[0];
         for(int i=1;i<n;++i) {
-            sofar = max(sofar+nums[i], nums[i]);
-            ans = max(ans, sofar);
+            loc = max(loc+nums[i], nums[i]);
+            glob = max(glob, loc);
         }
-        return ans;
+        return glob;
     }
 };
