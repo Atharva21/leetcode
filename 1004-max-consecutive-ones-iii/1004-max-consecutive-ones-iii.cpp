@@ -4,6 +4,7 @@ public:
         const int n = v.size();
         if(n == 0) return 0;
         int left=0, right=0, ans=0;
+        // sliding window algorithm
         while(left < n) {
             if(k >= 0) {
                 ans = max(ans, right-left);
