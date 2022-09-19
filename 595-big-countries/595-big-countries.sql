@@ -1,16 +1,9 @@
-SELECT
+select
     name, population, area
-FROM
-    world
-WHERE
+from
+    World
+where
     area >= 3000000
-
-UNION
-
-SELECT
-    name, population, area
-FROM
-    world
-WHERE
+    or
     population >= 25000000
 ;
